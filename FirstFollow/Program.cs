@@ -54,8 +54,19 @@ namespace FirstFollow {
             return Regras;
         }
 
-        public static void geraConjuntosFirst(List<FirstFollow> listaConjuntosFirstFollow, List<Regra> Regras) {
-
+        public static void geraConjuntosFirst(List<FirstFollow> listaConjuntosFirstFollow, List<Regra> regras) {
+            foreach(var regra in regras) {
+                FirstFollow ff = new FirstFollow(regra.label);
+                ff.first.AddRange(regra.producoes.Where(x => !x.StartsWith("<")).Select(x => x[0].ToString()).Distinct().ToList());
+                listaConjuntosFirstFollow.Add(ff);
+            }
+            bool mudou = true;
+            while (mudou) {
+                mudou = false;
+                foreach(var regra in regras) {
+                    List<string> naoTerminais = regra.producoes.Where(x => x.StartsWith("<")).ToList();
+                }
+            }
         }
 
         public static void geraConjuntosFollow(List<FirstFollow> listaConjuntosFirstFollow, List<Regra> Regras) {
